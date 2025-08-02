@@ -5,31 +5,15 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_40</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorPrimaryContainer">@color/blue_90</item>
-        <item name="colorOnPrimaryContainer">@color/blue_10</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/orange_40</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSecondaryContainer">@color/orange_90</item>
-        <item name="colorOnSecondaryContainer">@color/orange_10</item>
-        <!-- Tertiary brand color. -->
-        <item name="colorTertiary">@color/green_40</item>
-        <item name="colorOnTertiary">@color/white</item>
-        <item name="colorTertiaryContainer">@color/green_90</item>
-        <item name="colorOnTertiaryContainer">@color/green_10</item>
         <!-- Error colors -->
         <item name="colorError">@color/red_40</item>
-        <item name="colorErrorContainer">@color/red_90</item>
         <item name="colorOnError">@color/white</item>
-        <item name="colorOnErrorContainer">@color/red_10</item>
         <!-- Background colors -->
         <item name="android:colorBackground">@color/grey_99</item>
-        <item name="colorOnBackground">@color/grey_10</item>
         <item name="colorSurface">@color/grey_99</item>
         <item name="colorOnSurface">@color/grey_10</item>
-        <item name="colorSurfaceVariant">@color/blue_grey_90</item>
-        <item name="colorOnSurfaceVariant">@color/blue_grey_30</item>
-        <!-- Other colors -->
-        <item name="colorOutline">@color/blue_grey_50</item>
     </style>
 </resources>

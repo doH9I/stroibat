@@ -126,13 +126,13 @@ class EstimatesViewModel @Inject constructor(
         }
     }
     
-    fun exportEstimateToExcel(context: Context, estimate: Estimate) {
+    fun exportEstimateToCsv(context: Context, estimate: Estimate) {
         viewModelScope.launch {
             try {
                 // Создаем тестовые данные для экспорта
                 val items = createSampleEstimateItems()
                 
-                val result = ExportUtils.exportEstimateToExcel(
+                val result = ExportUtils.exportEstimateToCsv(
                     context = context,
                     estimateName = estimate.name,
                     items = items,
@@ -144,7 +144,7 @@ class EstimatesViewModel @Inject constructor(
                 result.fold(
                     onSuccess = { filePath ->
                         _uiState.value = _uiState.value.copy(
-                            message = "Excel экспортирован: $filePath"
+                            message = "CSV экспортирован: $filePath"
                         )
                     },
                     onFailure = { error ->

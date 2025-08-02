@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.constructionmanager.app"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -98,9 +98,8 @@ dependencies {
     // PDF generation
     implementation("com.itextpdf:itext7-core:7.2.5")
     
-    // Excel generation
-    implementation("org.apache.poi:poi:5.2.4")
-    implementation("org.apache.poi:poi-ooxml:5.2.4")
+    // CSV generation (instead of Excel to avoid POI compatibility issues)
+    implementation("com.opencsv:opencsv:5.7.1")
     
     // Date picker
     implementation("io.github.vanpra.compose-material-dialogs:datetime:0.9.0")

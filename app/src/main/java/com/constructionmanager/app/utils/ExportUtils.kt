@@ -8,9 +8,10 @@ import com.itextpdf.layout.Document
 import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.property.UnitValue
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import com.opencsv.CSVWriter
 import java.io.File
 import java.io.FileOutputStream
+import java.io.FileWriter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -85,14 +86,14 @@ object ExportUtils {
     }
     
     /**
-     * Экспорт данных в Excel
+     * Экспорт данных в CSV
      */
-    fun exportToExcel(
+    fun exportToCsv(
         context: Context,
         title: String,
         headers: List<String>,
         data: List<List<String>>,
-        fileName: String = "export_${System.currentTimeMillis()}.xlsx"
+        fileName: String = "export_${System.currentTimeMillis()}.csv"
     ): Result<String> {
         return try {
             val documentsDir = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "exports")
@@ -101,50 +102,26 @@ object ExportUtils {
             }
             
             val file = File(documentsDir, fileName)
-            val workbook = XSSFWorkbook()
-            val sheet = workbook.createSheet(title)
-            
-            var rowIndex = 0
+            val writer = CSVWriter(file.writer())
             
             // Заголовок документа
-            val titleRow = sheet.createRow(rowIndex++)
-            val titleCell = titleRow.createCell(0)
-            titleCell.setCellValue(title)
+            writer.writeNext(arrayOf(title))
             
             // Дата создания
-            val dateRow = sheet.createRow(rowIndex++)
-            val dateCell = dateRow.createCell(0)
-            dateCell.setCellValue("Дата создания: ${dateFormat.format(Date())}")
+            writer.writeNext(arrayOf("Дата создания: ${dateFormat.format(Date())}"))
             
             // Пустая строка
-            rowIndex++
+            writer.writeNext(arrayOf())
             
             // Заголовки колонок
-            val headerRow = sheet.createRow(rowIndex++)
-            headers.forEachIndexed { index, header ->
-                val cell = headerRow.createCell(index)
-                cell.setCellValue(header)
-            }
+            writer.writeNext(headers.toTypedArray())
             
             // Данные
             data.forEach { rowData ->
-                val dataRow = sheet.createRow(rowIndex++)
-                rowData.forEachIndexed { index, cellValue ->
-                    val cell = dataRow.createCell(index)
-                    cell.setCellValue(cellValue)
-                }
+                writer.writeNext(rowData.toTypedArray())
             }
             
-            // Автоподбор ширины колонок
-            for (i in headers.indices) {
-                sheet.autoSizeColumn(i)
-            }
-            
-            // Сохраняем файл
-            val outputStream = FileOutputStream(file)
-            workbook.write(outputStream)
-            outputStream.close()
-            workbook.close()
+            writer.close()
             
             Result.success(file.absolutePath)
         } catch (e: Exception) {
@@ -190,9 +167,9 @@ object ExportUtils {
     }
     
     /**
-     * Экспорт сметы в Excel
+     * Экспорт сметы в CSV
      */
-    fun exportEstimateToExcel(
+    fun exportEstimateToCsv(
         context: Context,
         estimateName: String,
         items: List<EstimateExportItem>,
@@ -217,12 +194,12 @@ object ExportUtils {
         data.add(listOf("", "", "", "", "НДС:", formatCurrency(vatAmount)))
         data.add(listOf("", "", "", "", "ВСЕГО:", formatCurrency(totalWithVat)))
         
-        return exportToExcel(
+        return exportToCsv(
             context = context,
             title = "Смета: $estimateName",
             headers = headers,
             data = data,
-            fileName = "estimate_${estimateName.replace(" ", "_")}_${System.currentTimeMillis()}.xlsx"
+            fileName = "estimate_${estimateName.replace(" ", "_")}_${System.currentTimeMillis()}.csv"
         )
     }
     

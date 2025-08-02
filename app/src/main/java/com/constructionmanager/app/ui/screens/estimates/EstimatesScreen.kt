@@ -123,8 +123,8 @@ fun EstimatesScreen(
                         onExportPdf = {
                             viewModel.exportEstimateToPdf(context, estimate)
                         },
-                        onExportExcel = {
-                            viewModel.exportEstimateToExcel(context, estimate)
+                        onExportCsv = {
+                            viewModel.exportEstimateToCsv(context, estimate)
                         },
                         onClick = { /* TODO: Navigate to estimate details */ }
                     )
@@ -156,7 +156,7 @@ fun EstimatesScreen(
 fun EstimateCard(
     estimate: Estimate,
     onExportPdf: () -> Unit,
-    onExportExcel: () -> Unit,
+    onExportCsv: () -> Unit,
     onClick: () -> Unit
 ) {
     Card(
@@ -245,7 +245,7 @@ fun EstimateCard(
                 }
                 
                 OutlinedButton(
-                    onClick = onExportExcel,
+                    onClick = onExportCsv,
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
@@ -254,7 +254,7 @@ fun EstimateCard(
                         modifier = Modifier.size(16.dp)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("Excel")
+                    Text("CSV")
                 }
             }
         }

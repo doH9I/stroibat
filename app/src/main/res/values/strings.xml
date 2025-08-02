@@ -43,7 +43,7 @@
     <string name="estimate_name">Название сметы</string>
     <string name="new_estimate">Новая смета</string>
     <string name="export_pdf">Экспорт PDF</string>
-    <string name="export_excel">Экспорт Excel</string>
+    <string name="export_csv">Экспорт CSV</string>
     
     <!-- Статусы -->
     <string name="status_planning">Планирование</string>
