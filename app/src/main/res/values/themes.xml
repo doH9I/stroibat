@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.ConstructionManager" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue_40</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/orange_40</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Error colors -->
+        <item name="colorError">@color/red_40</item>
+        <item name="colorOnError">@color/white</item>
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/grey_99</item>
+        <item name="colorSurface">@color/grey_99</item>
+        <item name="colorOnSurface">@color/grey_10</item>
+    </style>
+</resources>

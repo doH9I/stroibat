@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary colors - Blue (iOS-like) -->
+    <color name="blue_10">#FF001D36</color>
+    <color name="blue_20">#FF003258</color>
+    <color name="blue_30">#FF004A77</color>
+    <color name="blue_40">#FF006397</color>
+    <color name="blue_80">#FF5DD5FC</color>
+    <color name="blue_90">#FFB8EAFF</color>
+
+    <!-- Secondary colors - Orange -->
+    <color name="orange_10">#FF31160A</color>
+    <color name="orange_20">#FF4A2C19</color>
+    <color name="orange_30">#FF63432A</color>
+    <color name="orange_40">#FF7D5A3C</color>
+    <color name="orange_80">#FFFFB77C</color>
+    <color name="orange_90">#FFFFDDCC</color>
+
+    <!-- Tertiary colors - Green -->
+    <color name="green_10">#FF0D1F12</color>
+    <color name="green_20">#FF223526</color>
+    <color name="green_30">#FF394B3C</color>
+    <color name="green_40">#FF4F6352</color>
+    <color name="green_80">#FFB7CCB8</color>
+    <color name="green_90">#FFD3E8D3</color>
+
+    <!-- Error colors - Red -->
+    <color name="red_10">#FF410E0B</color>
+    <color name="red_20">#FF601410</color>
+    <color name="red_30">#FF8C1D18</color>
+    <color name="red_40">#FFB3261E</color>
+    <color name="red_80">#FFF2B8B5</color>
+    <color name="red_90">#FFF9DEDC</color>
+
+    <!-- Neutral colors - Grey -->
+    <color name="grey_10">#FF191C1D</color>
+    <color name="grey_20">#FF2D3132</color>
+    <color name="grey_30">#FF424648</color>
+    <color name="grey_40">#FF5A5D5F</color>
+    <color name="grey_50">#FF73767A</color>
+    <color name="grey_60">#FF8D9094</color>
+    <color name="grey_70">#FFA8AAAE</color>
+    <color name="grey_80">#FFC4C5C9</color>
+    <color name="grey_90">#FFE0E1E5</color>
+    <color name="grey_95">#FFF0F0F4</color>
+    <color name="grey_99">#FFFFFBFE</color>
+
+    <!-- Blue Grey colors -->
+    <color name="blue_grey_30">#FF45464F</color>
+    <color name="blue_grey_50">#FF767680</color>
+    <color name="blue_grey_60">#FF90909A</color>
+    <color name="blue_grey_80">#FFC6C5D0</color>
+    <color name="blue_grey_90">#FFE2E1EC</color>
+
+    <!-- System colors -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+
+    <!-- iOS-like accent colors -->
+    <color name="ios_blue">#FF007AFF</color>
+    <color name="ios_green">#FF34C759</color>
+    <color name="ios_orange">#FFFF9500</color>
+    <color name="ios_red">#FFFF3B30</color>
+    <color name="ios_purple">#FFAF52DE</color>
+    <color name="ios_pink">#FFFF2D92</color>
+    <color name="ios_yellow">#FFFFCC00</color>
+    <color name="ios_indigo">#FF5856D6</color>
+</resources>
