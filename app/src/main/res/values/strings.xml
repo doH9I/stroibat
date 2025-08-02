@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Менеджер Строительства</string>
+    
+    <!-- Общие -->
+    <string name="ok">OK</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="add">Добавить</string>
+    <string name="search">Поиск</string>
+    <string name="loading">Загрузка...</string>
+    <string name="error">Ошибка</string>
+    <string name="success">Успешно</string>
+    
+    <!-- Аутентификация -->
+    <string name="login">Войти</string>
+    <string name="logout">Выйти</string>
+    <string name="username">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="email">Email</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="phone">Телефон</string>
+    
+    <!-- Навигация -->
+    <string name="dashboard">Главная</string>
+    <string name="projects">Проекты</string>
+    <string name="estimates">Сметы</string>
+    <string name="reports">Отчеты</string>
+    <string name="issues">Замечания</string>
+    <string name="photos">Фото</string>
+    <string name="profile">Профиль</string>
+    
+    <!-- Проекты -->
+    <string name="project_name">Название проекта</string>
+    <string name="project_address">Адрес</string>
+    <string name="project_budget">Бюджет</string>
+    <string name="project_status">Статус</string>
+    <string name="new_project">Новый проект</string>
+    
+    <!-- Сметы -->
+    <string name="estimate_name">Название сметы</string>
+    <string name="new_estimate">Новая смета</string>
+    <string name="export_pdf">Экспорт PDF</string>
+    <string name="export_excel">Экспорт Excel</string>
+    
+    <!-- Статусы -->
+    <string name="status_planning">Планирование</string>
+    <string name="status_in_progress">В работе</string>
+    <string name="status_on_hold">Приостановлен</string>
+    <string name="status_completed">Завершен</string>
+    <string name="status_cancelled">Отменен</string>
+    <string name="status_draft">Черновик</string>
+    <string name="status_pending_approval">На согласовании</string>
+    <string name="status_approved">Утверждена</string>
+    <string name="status_rejected">Отклонена</string>
+    <string name="status_archived">Архив</string>
+</resources>
