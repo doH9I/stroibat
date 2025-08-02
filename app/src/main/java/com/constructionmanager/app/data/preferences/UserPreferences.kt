@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.constructionmanager.app.data.entities.User
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -39,6 +40,8 @@ class UserPreferences @Inject constructor(
         return if (userJson != null) {
             try {
                 gson.fromJson(userJson, User::class.java)
+            } catch (e: JsonSyntaxException) {
+                null
             } catch (e: Exception) {
                 null
             }

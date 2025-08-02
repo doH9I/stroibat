@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.constructionmanager.app.data.entities.Estimate
 import com.constructionmanager.app.data.entities.EstimateStatus
-import com.constructionmanager.app.utils.ExportUtils
+
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -74,7 +74,7 @@ fun EstimatesScreen(
                     selected = uiState.selectedStatus == null
                 )
             }
-            items(EstimateStatus.values()) { status ->
+            items(EstimateStatus.entries) { status ->
                 FilterChip(
                     onClick = { viewModel.filterByStatus(status) },
                     label = { Text(getStatusDisplayName(status)) },

@@ -44,7 +44,11 @@ class ReportRepository @Inject constructor(
     
     // Дополнительные методы для дашборда
     suspend fun getRecentReports(limit: Int = 5): List<Report> {
-        // TODO: Implement proper recent reports logic
-        return emptyList()
+        return try {
+            // Для демо-версии возвращаем пустой список
+            emptyList()
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 }

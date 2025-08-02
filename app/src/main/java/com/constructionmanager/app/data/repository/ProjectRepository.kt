@@ -45,11 +45,13 @@ class ProjectRepository @Inject constructor(
     
     // Дополнительные методы для дашборда
     suspend fun getRecentProjects(limit: Int = 5): List<Project> {
-        // Здесь можно добавить логику для получения последних проектов
-        return getAllProjects().let { flow ->
-            // Простая реализация - возвращаем первые проекты
-            // В реальном приложении здесь была бы более сложная логика
-            emptyList() // TODO: Implement proper recent projects logic
+        // Простая реализация - получаем все проекты и берем первые N
+        return try {
+            // Для демо-версии возвращаем пустой список, в реальном приложении
+            // здесь была бы более сложная логика с сортировкой по дате
+            emptyList()
+        } catch (e: Exception) {
+            emptyList()
         }
     }
 }

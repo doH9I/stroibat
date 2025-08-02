@@ -71,7 +71,7 @@ fun ProjectsScreen(
                     selected = uiState.selectedStatus == null
                 )
             }
-            items(ProjectStatus.values()) { status ->
+            items(ProjectStatus.entries) { status ->
                 FilterChip(
                     onClick = { viewModel.filterByStatus(status) },
                     label = { Text(getStatusDisplayName(status)) },
