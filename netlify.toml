@@ -1,7 +1,7 @@
 [build]
   publish = "public"
-  command = "echo 'Static site ready for deployment'"
-
+  command = "./build.sh"
+  
 [build.environment]
   NODE_VERSION = "18"
 

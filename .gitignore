@@ -198,3 +198,10 @@ Thumbs.db
 # Alembic
 alembic/versions/*.py
 !alembic/versions/
+
+# Netlify
+.netlify/
+
+# Build artifacts
+dist/
+build/
