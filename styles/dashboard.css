@@ -1,0 +1,482 @@
+/* Стили дашборда */
+
+.dashboard-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Сетка метрик */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.metric-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #667eea;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+}
+
+.metric-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+.metric-content {
+    flex: 1;
+}
+
+.metric-content h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.metric-change {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.metric-change.positive {
+    color: #10b981;
+}
+
+.metric-change.negative {
+    color: #ef4444;
+}
+
+/* Сетка графиков */
+.charts-grid {
+    margin-bottom: 32px;
+}
+
+.chart-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.chart-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.chart-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.chart-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.chart-container {
+    height: 300px;
+    position: relative;
+}
+
+/* Секция активностей */
+.activity-section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 32px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.section-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+    background: #f1f5f9;
+    transform: translateX(4px);
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+}
+
+.activity-icon.project {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.activity-icon.estimate {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.activity-icon.employee {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.activity-icon.financial {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.activity-icon.notification {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-title {
+    font-weight: 500;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.activity-time {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.activity-status {
+    display: flex;
+    align-items: center;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+}
+
+.activity-status.pending .status-dot {
+    background: #f59e0b;
+}
+
+.activity-status.warning .status-dot {
+    background: #ef4444;
+}
+
+/* Быстрые действия */
+.quick-actions {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.action-card {
+    padding: 20px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--action-color) 0%, var(--action-color) 100%);
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.action-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    opacity: 0.9;
+}
+
+.action-title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Модальное окно активностей */
+.activities-modal {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.activity-filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.activity-filters .form-control {
+    flex: 1;
+}
+
+.activities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .chart-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-container {
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .metric-card {
+        padding: 16px;
+    }
+    
+    .metric-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .metric-value {
+        font-size: 24px;
+    }
+    
+    .chart-card {
+        padding: 16px;
+    }
+    
+    .chart-container {
+        height: 200px;
+    }
+    
+    .activity-section,
+    .quick-actions {
+        padding: 16px;
+    }
+    
+    .actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .activity-filters {
+        flex-direction: column;
+    }
+    
+    .chart-actions {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .chart-actions .btn {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+
+/* Анимации для графиков */
+.chart-container canvas {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Стили для пустого состояния */
+.dashboard-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+}
+
+.dashboard-empty i {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.3;
+}
+
+.dashboard-empty h3 {
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.dashboard-empty p {
+    margin-bottom: 24px;
+}
+
+/* Стили для загрузки */
+.dashboard-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.dashboard-loading .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #e5e7eb;
+    border-top: 6px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Стили для ошибок */
+.dashboard-error {
+    text-align: center;
+    padding: 40px 20px;
+    color: #ef4444;
+}
+
+.dashboard-error i {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.dashboard-error h3 {
+    margin-bottom: 8px;
+    color: #dc2626;
+}
+
+.dashboard-error p {
+    margin-bottom: 16px;
+    color: #6b7280;
+}
+
+/* Дополнительные стили для метрик */
+.metric-card:nth-child(1) {
+    border-left-color: #667eea;
+}
+
+.metric-card:nth-child(1) .metric-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.metric-card:nth-child(2) {
+    border-left-color: #10b981;
+}
+
+.metric-card:nth-child(2) .metric-icon {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.metric-card:nth-child(3) {
+    border-left-color: #f59e0b;
+}
+
+.metric-card:nth-child(3) .metric-icon {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.metric-card:nth-child(4) {
+    border-left-color: #ef4444;
+}
+
+.metric-card:nth-child(4) .metric-icon {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
