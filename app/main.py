@@ -7,6 +7,9 @@ import logging
 from app.core.config import settings
 from app.core.database import init_db
 from app.routes.auth import router as auth_router
+from app.routes.projects import router as projects_router
+from app.routes.clients import router as clients_router
+from app.services.init_db import init_default_data
 
 
 # Configure logging
@@ -22,6 +25,9 @@ async def lifespan(app: FastAPI):
     try:
         init_db()
         logger.info("Database initialized successfully")
+        # Initialize default data
+        init_default_data()
+        logger.info("Default data initialized successfully")
     except Exception as e:
         logger.error(f"Failed to initialize database: {e}")
         raise
@@ -59,6 +65,8 @@ except RuntimeError:
 
 # Include routers
 app.include_router(auth_router, prefix="/api/v1")
+app.include_router(projects_router, prefix="/api/v1")
+app.include_router(clients_router, prefix="/api/v1")
 
 # Health check endpoint
 @app.get("/health")

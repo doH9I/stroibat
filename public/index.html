@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction CRM - Система управления строительными проектами</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-building"></i> Construction CRM
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#dashboard">Дашборд</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Проекты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#clients">Клиенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#estimates">Сметы</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown" id="userMenu" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> <span id="userName">Пользователь</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#profile">Профиль</a></li>
+                            <li><a class="dropdown-item" href="#settings">Настройки</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Выйти</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" id="loginBtn">
+                        <a class="nav-link" href="#" onclick="showLogin()">
+                            <i class="fas fa-sign-in-alt"></i> Войти
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Вход в систему</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Логин или Email</label>
+                                <input type="text" class="form-control" id="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Пароль</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apiUrl" class="form-label">API URL</label>
+                                <input type="url" class="form-control" id="apiUrl" value="http://localhost:8000" placeholder="http://localhost:8000">
+                                <div class="form-text">URL вашего API сервера</div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" onclick="login()">Войти</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Areas -->
+        <div id="welcomeScreen" class="welcome-screen">
+            <div class="hero-section">
+                <div class="container text-center">
+                    <h1 class="display-4 fw-bold text-primary">
+                        <i class="fas fa-building"></i> Construction CRM
+                    </h1>
+                    <p class="lead">Современная система управления строительными проектами</p>
+                    <p class="text-muted">Python/FastAPI версия с современным интерфейсом</p>
+                    
+                    <div class="row mt-5">
+                        <div class="col-md-4">
+                            <div class="feature-card">
+                                <i class="fas fa-project-diagram fa-3x text-primary mb-3"></i>
+                                <h4>Управление проектами</h4>
+                                <p>Полный контроль над строительными проектами от планирования до завершения</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card">
+                                <i class="fas fa-calculator fa-3x text-success mb-3"></i>
+                                <h4>Сметы и расчеты</h4>
+                                <p>Автоматизированное составление смет и контроль бюджета проектов</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card">
+                                <i class="fas fa-users fa-3x text-info mb-3"></i>
+                                <h4>Команда и клиенты</h4>
+                                <p>Управление командой, клиентской базой и взаимодействием</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <button class="btn btn-primary btn-lg me-3" onclick="showLogin()">
+                            <i class="fas fa-sign-in-alt"></i> Войти в систему
+                        </button>
+                        <a href="#docs" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-book"></i> Документация API
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="dashboardScreen" class="dashboard-screen" style="display: none;">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="sidebar">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" onclick="showSection('dashboard')">
+                                    <i class="fas fa-tachometer-alt"></i> Дашборд
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showSection('projects')">
+                                    <i class="fas fa-project-diagram"></i> Проекты
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showSection('clients')">
+                                    <i class="fas fa-users"></i> Клиенты
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showSection('estimates')">
+                                    <i class="fas fa-calculator"></i> Сметы
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showSection('materials')">
+                                    <i class="fas fa-boxes"></i> Материалы
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="main-content">
+                        <div id="dashboard-content" class="content-section">
+                            <h2>Дашборд</h2>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="stat-card bg-primary text-white">
+                                        <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+                                        <div class="stat-info">
+                                            <h3 id="totalProjects">-</h3>
+                                            <p>Проектов</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stat-card bg-success text-white">
+                                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                                        <div class="stat-info">
+                                            <h3 id="totalClients">-</h3>
+                                            <p>Клиентов</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stat-card bg-warning text-white">
+                                        <div class="stat-icon"><i class="fas fa-calculator"></i></div>
+                                        <div class="stat-info">
+                                            <h3 id="totalEstimates">-</h3>
+                                            <p>Смет</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stat-card bg-info text-white">
+                                        <div class="stat-icon"><i class="fas fa-ruble-sign"></i></div>
+                                        <div class="stat-info">
+                                            <h3 id="totalRevenue">-</h3>
+                                            <p>Выручка</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="projects-content" class="content-section" style="display: none;">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2>Проекты</h2>
+                                <button class="btn btn-primary" onclick="createProject()">
+                                    <i class="fas fa-plus"></i> Новый проект
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Название</th>
+                                            <th>Клиент</th>
+                                            <th>Статус</th>
+                                            <th>Бюджет</th>
+                                            <th>Менеджер</th>
+                                            <th>Действия</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="projectsTable">
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">
+                                                <i class="fas fa-spinner fa-spin"></i> Загрузка данных...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="clients-content" class="content-section" style="display: none;">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2>Клиенты</h2>
+                                <button class="btn btn-primary" onclick="createClient()">
+                                    <i class="fas fa-plus"></i> Новый клиент
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Компания</th>
+                                            <th>Контактное лицо</th>
+                                            <th>Email</th>
+                                            <th>Телефон</th>
+                                            <th>Статус</th>
+                                            <th>Действия</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="clientsTable">
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">
+                                                <i class="fas fa-spinner fa-spin"></i> Загрузка данных...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="estimates-content" class="content-section" style="display: none;">
+                            <h2>Сметы</h2>
+                            <p class="text-muted">Раздел в разработке. Здесь будет отображаться список смет.</p>
+                        </div>
+
+                        <div id="materials-content" class="content-section" style="display: none;">
+                            <h2>Материалы</h2>
+                            <p class="text-muted">Раздел в разработке. Здесь будет отображаться каталог материалов.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+            <span class="text-muted">
+                Construction CRM © 2024 | 
+                <a href="#" onclick="showApiDocs()">API Документация</a> | 
+                <a href="https://github.com/your-username/construction-crm" target="_blank">GitHub</a>
+            </span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js for future dashboards -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Main JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
