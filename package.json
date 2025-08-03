@@ -1,14 +1,15 @@
 {
   "name": "construction-crm-frontend",
   "version": "1.0.0",
-  "description": "Construction CRM Frontend for Netlify",
-  "main": "public/index.html",
+  "description": "Construction CRM Static Frontend",
   "scripts": {
-    "build": "echo 'Static site - no build needed'",
-    "start": "echo 'Open public/index.html in browser'"
+    "build": "echo 'No build required - static files ready'",
+    "start": "echo 'Static site'"
   },
-  "keywords": ["construction", "crm", "static", "netlify"],
-  "author": "Construction CRM Team",
-  "license": "MIT",
-  "type": "module"
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "private": true
 }

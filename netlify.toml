@@ -1,9 +1,5 @@
 [build]
   publish = "public"
-  command = "./build.sh"
-  
-[build.environment]
-  NODE_VERSION = "18"
 
 [[redirects]]
   from = "/api/*"
