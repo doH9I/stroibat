@@ -1,0 +1,15 @@
+{
+  "name": "construction-crm-frontend",
+  "version": "1.0.0",
+  "description": "Construction CRM Static Frontend",
+  "scripts": {
+    "build": "echo 'No build required - static files ready'",
+    "start": "echo 'Static site'"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "private": true
+}

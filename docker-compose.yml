@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=construction_user
+      - DB_PASSWORD=construction_password
+      - DB_NAME=construction_crm
+      - SECRET_KEY=your-production-secret-key-here
+      - DEBUG=False
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+    networks:
+      - construction_network
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=construction_crm
+      - MYSQL_USER=construction_user
+      - MYSQL_PASSWORD=construction_password
+      - MYSQL_ROOT_PASSWORD=root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    restart: unless-stopped
+    networks:
+      - construction_network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./static:/usr/share/nginx/html/static
+    depends_on:
+      - app
+    restart: unless-stopped
+    networks:
+      - construction_network
+
+volumes:
+  db_data:
+
+networks:
+  construction_network:
+    driver: bridge

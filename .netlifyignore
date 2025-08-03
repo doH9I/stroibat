@@ -1,0 +1,57 @@
+# Ignore ALL Python backend files
+backend/
+app/
+src/
+*.py
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+.env
+.env.*
+requirements.txt
+pyproject.toml
+poetry.lock
+Pipfile
+Pipfile.lock
+setup.py
+setup.cfg
+run.py
+init_db.py
+
+# Ignore Docker files
+Dockerfile
+docker-compose.yml
+
+# Ignore development files
+.env
+.env.example
+tests/
+migrations/
+
+# Ignore database files
+database/
+
+# Ignore static assets not in public/
+static/
+templates/
+
+# Ignore documentation
+README_PHP.md
+QUICKSTART.md
+NETLIFY_DEPLOYMENT.md
+PROJECT_STATUS.md
+
+# Ignore Git
+.git/
+.gitignore
+
+# Ignore Node.js files if any
+node_modules/
+package.json
+package-lock.json
+yarn.lock
+
+# Keep only public/ directory for Netlify
