@@ -1,6 +1,6 @@
-# Construction CRM - Современная CRM система для строительных компаний
+# Construction CRM - Современная CRM система для строительных компаний (Python/FastAPI)
 
-Современная веб-система управления строительными проектами с полным функционалом для ведения проектов, составления смет, учета рабочего времени и управления ресурсами.
+Современная веб-система управления строительными проектами, переписанная на Python с использованием FastAPI, SQLAlchemy и современных технологий. Полный функционал для ведения проектов, составления смет, учета рабочего времени и управления ресурсами.
 
 ## 🚀 Возможности системы
 
@@ -38,189 +38,329 @@
 - Поставщики и цены
 - Списание на проекты
 
-### 💰 Финансы
-- Создание счетов
-- Отслеживание платежей
-- Учет доходов и расходов
-- Финансовая отчетность
-- Интеграция со сметами
+## 🛠️ Технологии
 
-### 📈 Отчетность
-- Детальные отчеты по проектам
-- Аналитика эффективности
-- Отчеты по времени и материалам
-- Финансовые отчеты
-- Экспорт в различные форматы
+### Backend
+- **Python 3.11+** - Серверная логика
+- **FastAPI** - Современный веб-фреймворк
+- **SQLAlchemy** - ORM для работы с базой данных
+- **Alembic** - Миграции базы данных
+- **Pydantic** - Валидация данных
+- **JWT** - Аутентификация и авторизация
+- **MySQL** - База данных
 
-## 🛠️ Технические требования
+### Дополнительные библиотеки
+- **Uvicorn** - ASGI сервер
+- **Passlib** - Хеширование паролей
+- **Python-jose** - JWT токены
+- **Pandas** - Обработка данных
+- **ReportLab** - Генерация PDF
+- **Pytest** - Тестирование
 
-- PHP 8.0 или выше
-- MySQL 5.7 или выше / MariaDB 10.2 или выше
-- Веб-сервер (Apache/Nginx)
-- Composer для управления зависимостями
+### Инфраструктура
+- **Docker & Docker Compose** - Контейнеризация
+- **Nginx** - Reverse proxy и статические файлы
+- **Git** - Контроль версий
 
-## 📦 Установка
+## 📁 Структура проекта
 
-### 1. Клонирование репозитория
-```bash
-git clone https://github.com/your-username/construction-crm.git
-cd construction-crm
+```
+construction-crm/
+├── app/                      # Основное приложение
+│   ├── core/                # Ядро приложения
+│   │   ├── config.py       # Конфигурация
+│   │   ├── database.py     # Подключение к БД
+│   │   ├── security.py     # Безопасность и JWT
+│   │   └── auth.py         # Аутентификация
+│   ├── models/             # SQLAlchemy модели
+│   │   ├── user.py         # Модель пользователя
+│   │   ├── client.py       # Модель клиента
+│   │   ├── project.py      # Модель проекта
+│   │   ├── material.py     # Модель материала
+│   │   ├── estimate.py     # Модель сметы
+│   │   └── ...             # Другие модели
+│   ├── schemas/            # Pydantic схемы
+│   │   ├── auth.py         # Схемы аутентификации
+│   │   └── ...             # Другие схемы
+│   ├── routes/             # API маршруты
+│   │   ├── auth.py         # Аутентификация
+│   │   └── ...             # Другие маршруты
+│   ├── services/           # Бизнес-логика
+│   └── main.py             # Основное приложение FastAPI
+├── database/               # SQL схемы и миграции
+├── static/                 # Статические файлы
+├── tests/                  # Тесты
+├── uploads/                # Загруженные файлы
+├── migrations/             # Alembic миграции
+├── Dockerfile             # Docker конфигурация
+├── docker-compose.yml     # Docker Compose
+├── requirements.txt       # Python зависимости
+├── .env.example          # Пример переменных окружения
+└── README.md             # Документация
 ```
 
-### 2. Установка зависимостей
-```bash
-composer install
-```
+## 🛠️ Установка и настройка
 
-### 3. Настройка базы данных
-```bash
-# Создайте базу данных MySQL
-mysql -u root -p
-CREATE DATABASE construction_crm CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-exit;
+### Требования
+- Python 3.11 или выше
+- MySQL 8.0 или выше
+- Docker и Docker Compose (рекомендуется)
+- Git
 
-# Импортируйте схему
-mysql -u root -p construction_crm < database/schema.sql
-```
+### Быстрый запуск с Docker
 
-### 4. Настройка окружения
-```bash
-# Скопируйте файл конфигурации
-cp .env.example .env
+1. **Клонирование репозитория**
+   ```bash
+   git clone https://github.com/your-username/construction-crm.git
+   cd construction-crm
+   ```
 
-# Отредактируйте настройки в .env
-nano .env
-```
+2. **Запуск с Docker Compose**
+   ```bash
+   # Скопируйте и настройте переменные окружения
+   cp .env.example .env
+   
+   # Запустите все сервисы
+   docker-compose up -d
+   ```
 
-### 5. Настройка веб-сервера
+3. **Доступ к системе**
+   - API: `http://localhost:8000`
+   - Документация: `http://localhost:8000/docs`
+   - Веб-интерфейс: `http://localhost`
 
-#### Apache
-Убедитесь, что mod_rewrite включен:
-```bash
-sudo a2enmod rewrite
-sudo systemctl restart apache2
-```
+### Локальная разработка
 
-#### Nginx
-Добавьте в конфигурацию:
-```nginx
-location / {
-    try_files $uri $uri/ /index.php?$query_string;
-}
-```
+1. **Подготовка окружения**
+   ```bash
+   # Создайте виртуальное окружение
+   python -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   # или
+   venv\Scripts\activate  # Windows
+   
+   # Установите зависимости
+   pip install -r requirements.txt
+   ```
 
-### 6. Настройка прав доступа
-```bash
-chmod 755 .
-chmod 644 .env
-chmod -R 755 assets/
-chmod -R 755 uploads/
-```
+2. **Настройка базы данных**
+   ```bash
+   # Создайте базу данных MySQL
+   mysql -u root -p
+   CREATE DATABASE construction_crm;
+   
+   # Импортируйте схему
+   mysql -u root -p construction_crm < database/schema.sql
+   ```
+
+3. **Конфигурация**
+   ```bash
+   # Скопируйте файл окружения
+   cp .env.example .env
+   
+   # Отредактируйте .env файл
+   nano .env
+   ```
+
+4. **Запуск сервера разработки**
+   ```bash
+   # Используя run.py
+   python run.py
+   
+   # Или напрямую через uvicorn
+   uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+   ```
+
+5. **Доступ к системе**
+   - API: `http://localhost:8000`
+   - Документация: `http://localhost:8000/docs`
+   - ReDoc: `http://localhost:8000/redoc`
 
 ## 🔧 Конфигурация
 
 ### Файл .env
 ```env
+# Database Configuration
 DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=password
 DB_NAME=construction_crm
-DB_USER=your_username
-DB_PASS=your_password
-DB_CHARSET=utf8mb4
 
-APP_NAME="Construction CRM"
-APP_URL=http://your-domain.com
-APP_DEBUG=false
+# Application Configuration
+SECRET_KEY=your-super-secret-key-change-this-in-production
+DEBUG=True
+ACCESS_TOKEN_EXPIRE_MINUTES=30
 
+# File Upload Configuration
+UPLOAD_DIR=./uploads
+MAX_FILE_SIZE=10485760
+
+# Email Configuration (Optional)
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your-email@gmail.com
-SMTP_PASS=your-password
-SMTP_ENCRYPTION=tls
+SMTP_PASSWORD=your-app-password
 ```
 
-## 👤 Первоначальная настройка
+## 👤 Данные для входа по умолчанию
 
-1. Откройте систему в браузере
-2. Войдите с демо-аккаунтом:
-   - Логин: `admin`
-   - Пароль: `password`
-3. Смените пароль администратора
-4. Настройте параметры компании
-5. Добавьте пользователей и роли
+- **Логин:** `admin`
+- **Email:** `admin@construction-crm.com`
+- **Пароль:** `password`
 
-## 🚀 Развертывание на Netlify
+⚠️ **Важно:** Обязательно смените пароль администратора после первого входа!
 
-1. Подключите репозиторий к Netlify
-2. Настройте переменные окружения в Netlify
-3. Укажите команду сборки: `composer install --no-dev --optimize-autoloader`
-4. Укажите папку публикации: `.`
-5. Настройте базу данных (рекомендуется внешний хостинг БД)
+## 🧪 Тестирование
 
-## 📱 Использование
+```bash
+# Запуск всех тестов
+pytest
 
-### Основные разделы
+# Запуск с покрытием
+pytest --cov=app
 
-1. **Дашборд** - обзор ключевых метрик
-2. **Проекты** - управление строительными проектами
-3. **Сметы** - создание и управление сметами
-4. **Клиенты** - база клиентов и контактов
-5. **Учет времени** - табели и отчеты по времени
-6. **Материалы** - складской учет
-7. **Оборудование** - управление техникой
-8. **Счета** - финансовый учет
-9. **Отчеты** - аналитика и экспорт
-
-### Роли пользователей
-
-- **Администратор** - полный доступ ко всем функциям
-- **Менеджер** - управление проектами и сметами
-- **Сотрудник** - учет времени и работа с задачами
-- **Клиент** - просмотр своих проектов
-
-## 🔒 Безопасность
-
-- Хеширование паролей с использованием bcrypt
-- Защита от SQL-инъекций
-- Валидация входных данных
-- CSRF-защита
-- Безопасные заголовки HTTP
-- Ограничение доступа по ролям
-
-## 📊 API
-
-Система предоставляет REST API для интеграции:
-
-- `/api/dashboard/stats.php` - статистика дашборда
-- `/api/projects/` - управление проектами
-- `/api/estimates/` - работа со сметами
-- `/api/time-tracking/` - учет времени
-
-## 🐛 Отладка
-
-Для включения режима отладки установите в .env:
-```env
-APP_DEBUG=true
+# Запуск конкретного теста
+pytest tests/test_auth.py
 ```
 
-Логи ошибок сохраняются в папке `logs/`.
+## 🚀 Развертывание
 
-## 🤝 Поддержка
+### Продакшн с Docker
 
-- Документация: [docs/](docs/)
-- Issues: [GitHub Issues](https://github.com/your-username/construction-crm/issues)
-- Email: support@construction-crm.com
+1. **Настройте переменные окружения для продакшна**
+   ```bash
+   cp .env.example .env.prod
+   # Отредактируйте .env.prod
+   ```
 
-## 📄 Лицензия
+2. **Запустите в продакшн режиме**
+   ```bash
+   docker-compose -f docker-compose.yml --env-file .env.prod up -d
+   ```
 
-MIT License - см. файл [LICENSE](LICENSE)
+### Ручное развертывание
 
-## 🙏 Благодарности
+1. **Подготовка сервера**
+   ```bash
+   # Установите Python, MySQL, Nginx
+   sudo apt update
+   sudo apt install python3.11 python3.11-venv mysql-server nginx
+   ```
 
-- Bootstrap для UI компонентов
-- Chart.js для графиков
-- Font Awesome для иконок
-- Сообществу PHP разработчиков
+2. **Настройка приложения**
+   ```bash
+   # Создайте пользователя и директорию
+   sudo useradd -m crm
+   sudo mkdir /opt/construction-crm
+   sudo chown crm:crm /opt/construction-crm
+   
+   # Переключитесь на пользователя crm
+   sudo su - crm
+   cd /opt/construction-crm
+   
+   # Клонируйте репозиторий
+   git clone https://github.com/your-username/construction-crm.git .
+   
+   # Создайте виртуальное окружение
+   python3.11 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+3. **Настройка systemd**
+   ```bash
+   sudo nano /etc/systemd/system/construction-crm.service
+   ```
+   
+   ```ini
+   [Unit]
+   Description=Construction CRM
+   After=network.target
+   
+   [Service]
+   Type=exec
+   User=crm
+   Group=crm
+   WorkingDirectory=/opt/construction-crm
+   Environment=PATH=/opt/construction-crm/venv/bin
+   ExecStart=/opt/construction-crm/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000
+   Restart=always
+   
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+## 📖 API Документация
+
+После запуска приложения доступна интерактивная документация:
+
+- **Swagger UI:** `http://localhost:8000/docs`
+- **ReDoc:** `http://localhost:8000/redoc`
+
+### Основные эндпоинты
+
+- `POST /api/v1/auth/login` - Аутентификация
+- `GET /api/v1/auth/me` - Информация о текущем пользователе
+- `GET /api/v1/projects` - Список проектов
+- `POST /api/v1/projects` - Создание проекта
+- `GET /api/v1/clients` - Список клиентов
+- `GET /health` - Проверка здоровья приложения
+
+## 🤝 Разработка
+
+### Настройка среды разработки
+
+1. **Установите pre-commit хуки**
+   ```bash
+   pip install pre-commit
+   pre-commit install
+   ```
+
+2. **Форматирование кода**
+   ```bash
+   black app/
+   isort app/
+   ```
+
+3. **Линтинг**
+   ```bash
+   flake8 app/
+   ```
+
+### Миграции базы данных
+
+```bash
+# Создание миграции
+alembic revision --autogenerate -m "Описание изменений"
+
+# Применение миграций
+alembic upgrade head
+
+# Откат миграции
+alembic downgrade -1
+```
+
+## 📝 Лицензия
+
+Этот проект распространяется под лицензией MIT. См. файл [LICENSE](LICENSE) для подробностей.
+
+## 🆘 Поддержка
+
+Если у вас возникли вопросы или проблемы:
+
+1. Проверьте [документацию](docs/)
+2. Создайте [Issue](https://github.com/your-username/construction-crm/issues)
+3. Обратитесь к разработчикам
+
+## 🔄 Миграция с PHP версии
+
+Для миграции данных с предыдущей PHP версии:
+
+1. Экспортируйте данные из старой системы
+2. Используйте скрипты миграции в папке `migrations/`
+3. Следуйте инструкциям в `MIGRATION.md`
 
 ---
 
-**Construction CRM** - профессиональное решение для управления строительными проектами
+**Construction CRM** - современное решение для управления строительными проектами! 🏗️
