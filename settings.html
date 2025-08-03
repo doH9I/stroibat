@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>BuildCRM - Настройки</title>
+    <link rel="stylesheet" href="styles/main.css?v=1.0">
+    <link rel="stylesheet" href="styles/app.css?v=1.0">
+    <link rel="stylesheet" href="styles/settings.css?v=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-building"></i> BuildCRM</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i> Дашборд
+                    </a></li>
+                    <li><a href="projects.html" class="nav-link">
+                        <i class="fas fa-project-diagram"></i> Проекты
+                    </a></li>
+                    <li><a href="estimates.html" class="nav-link">
+                        <i class="fas fa-calculator"></i> Сметы
+                    </a></li>
+                    <li><a href="employees.html" class="nav-link">
+                        <i class="fas fa-users"></i> Сотрудники
+                    </a></li>
+                    <li><a href="timesheet.html" class="nav-link">
+                        <i class="fas fa-clock"></i> Табель
+                    </a></li>
+                    <li><a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i> Аналитика
+                    </a></li>
+                    <li><a href="calendar.html" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i> Календарь
+                    </a></li>
+                    <li><a href="reports.html" class="nav-link">
+                        <i class="fas fa-file-alt"></i> Отчеты
+                    </a></li>
+                    <li><a href="settings.html" class="nav-link active">
+                        <i class="fas fa-cog"></i> Настройки
+                    </a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="user-avatar">
+                    <div class="user-details">
+                        <span class="user-name">Администратор</span>
+                        <span class="user-role">Руководитель</span>
+                    </div>
+                </div>
+                <button onclick="logout()" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Верхняя панель -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button onclick="toggleSidebar()" class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>Настройки</h1>
+                </div>
+                <div class="top-bar-right">
+                    <button onclick="saveAllSettings()" class="btn-primary">
+                        <i class="fas fa-save"></i> Сохранить все
+                    </button>
+                </div>
+            </header>
+
+            <!-- Контент настроек -->
+            <div class="content-wrapper">
+                <div class="settings-section">
+                    <div class="settings-tabs">
+                        <button class="tab-btn active" onclick="showTab('general')">Общие</button>
+                        <button class="tab-btn" onclick="showTab('company')">Компания</button>
+                        <button class="tab-btn" onclick="showTab('notifications')">Уведомления</button>
+                        <button class="tab-btn" onclick="showTab('security')">Безопасность</button>
+                        <button class="tab-btn" onclick="showTab('integrations')">Интеграции</button>
+                    </div>
+
+                    <!-- Общие настройки -->
+                    <div id="general" class="tab-content active">
+                        <div class="settings-card">
+                            <h3>Региональные настройки</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="language">Язык интерфейса</label>
+                                    <select id="language" class="form-control">
+                                        <option value="ru" selected>Русский</option>
+                                        <option value="en">English</option>
+                                        <option value="de">Deutsch</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="timezone">Часовой пояс</label>
+                                    <select id="timezone" class="form-control">
+                                        <option value="Europe/Moscow" selected>Москва (UTC+3)</option>
+                                        <option value="Europe/London">Лондон (UTC+0)</option>
+                                        <option value="America/New_York">Нью-Йорк (UTC-5)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="currency">Валюта</label>
+                                    <select id="currency" class="form-control">
+                                        <option value="RUB" selected>Российский рубль (₽)</option>
+                                        <option value="USD">Доллар США ($)</option>
+                                        <option value="EUR">Евро (€)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dateFormat">Формат даты</label>
+                                    <select id="dateFormat" class="form-control">
+                                        <option value="dd.mm.yyyy" selected>ДД.ММ.ГГГГ</option>
+                                        <option value="mm/dd/yyyy">ММ/ДД/ГГГГ</option>
+                                        <option value="yyyy-mm-dd">ГГГГ-ММ-ДД</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Интерфейс</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="darkMode" onchange="toggleDarkMode()">
+                                    <span class="checkmark"></span>
+                                    Темная тема
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="compactMode" checked>
+                                    <span class="checkmark"></span>
+                                    Компактный вид
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="autoSave" checked>
+                                    <span class="checkmark"></span>
+                                    Автосохранение форм
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Настройки компании -->
+                    <div id="company" class="tab-content">
+                        <div class="settings-card">
+                            <h3>Информация о компании</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="companyName">Название компании</label>
+                                    <input type="text" id="companyName" class="form-control" value="ООО 'СтройТех'">
+                                </div>
+                                <div class="form-group">
+                                    <label for="companyTax">ИНН</label>
+                                    <input type="text" id="companyTax" class="form-control" value="7728123456">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyAddress">Адрес</label>
+                                <textarea id="companyAddress" class="form-control" rows="2">г. Москва, ул. Строительная, д. 15, оф. 201</textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="companyPhone">Телефон</label>
+                                    <input type="tel" id="companyPhone" class="form-control" value="+7 (495) 123-45-67">
+                                </div>
+                                <div class="form-group">
+                                    <label for="companyEmail">Email</label>
+                                    <input type="email" id="companyEmail" class="form-control" value="info@stroytech.ru">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Настройки проектов</h3>
+                            <div class="form-group">
+                                <label for="defaultProjectDuration">Длительность проекта по умолчанию (дней)</label>
+                                <input type="number" id="defaultProjectDuration" class="form-control" value="90">
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="autoProjectCode" checked>
+                                    <span class="checkmark"></span>
+                                    Автоматическая генерация кода проекта
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="projectNotifications" checked>
+                                    <span class="checkmark"></span>
+                                    Уведомления о сроках проектов
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Настройки уведомлений -->
+                    <div id="notifications" class="tab-content">
+                        <div class="settings-card">
+                            <h3>Email уведомления</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="emailNewProject" checked>
+                                    <span class="checkmark"></span>
+                                    Новые проекты
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="emailDeadlines" checked>
+                                    <span class="checkmark"></span>
+                                    Приближение дедлайнов
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="emailReports">
+                                    <span class="checkmark"></span>
+                                    Еженедельные отчеты
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Push уведомления</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="pushMessages" checked>
+                                    <span class="checkmark"></span>
+                                    Новые сообщения
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="pushTasks">
+                                    <span class="checkmark"></span>
+                                    Новые задачи
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Настройки безопасности -->
+                    <div id="security" class="tab-content">
+                        <div class="settings-card">
+                            <h3>Пароль</h3>
+                            <div class="form-group">
+                                <label for="currentPassword">Текущий пароль</label>
+                                <input type="password" id="currentPassword" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">Новый пароль</label>
+                                <input type="password" id="newPassword" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Подтвердите пароль</label>
+                                <input type="password" id="confirmPassword" class="form-control">
+                            </div>
+                            <button onclick="changePassword()" class="btn-primary">Изменить пароль</button>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Двухфакторная аутентификация</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="enable2FA">
+                                    <span class="checkmark"></span>
+                                    Включить 2FA
+                                </label>
+                                <p class="help-text">Повысьте безопасность вашего аккаунта с помощью двухфакторной аутентификации</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Активные сессии</h3>
+                            <div class="session-item">
+                                <div class="session-info">
+                                    <strong>Текущая сессия</strong>
+                                    <p>Chrome на Windows • Москва</p>
+                                    <small>Последняя активность: сейчас</small>
+                                </div>
+                                <button class="btn-secondary">Текущая</button>
+                            </div>
+                            <div class="session-item">
+                                <div class="session-info">
+                                    <strong>Мобильное приложение</strong>
+                                    <p>iPhone • Москва</p>
+                                    <small>Последняя активность: 2 часа назад</small>
+                                </div>
+                                <button onclick="terminateSession()" class="btn-danger">Завершить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Интеграции -->
+                    <div id="integrations" class="tab-content">
+                        <div class="settings-card">
+                            <h3>Доступные интеграции</h3>
+                            <div class="integration-item">
+                                <div class="integration-info">
+                                    <h4>1С:Бухгалтерия</h4>
+                                    <p>Синхронизация финансовых данных</p>
+                                </div>
+                                <div class="integration-status">
+                                    <span class="status-badge status-active">Подключено</span>
+                                    <button onclick="configureIntegration('1c')" class="btn-secondary">Настроить</button>
+                                </div>
+                            </div>
+                            <div class="integration-item">
+                                <div class="integration-info">
+                                    <h4>Google Calendar</h4>
+                                    <p>Синхронизация календаря проектов</p>
+                                </div>
+                                <div class="integration-status">
+                                    <span class="status-badge status-pending">Не подключено</span>
+                                    <button onclick="connectIntegration('google')" class="btn-primary">Подключить</button>
+                                </div>
+                            </div>
+                            <div class="integration-item">
+                                <div class="integration-info">
+                                    <h4>Slack</h4>
+                                    <p>Уведомления в корпоративный мессенджер</p>
+                                </div>
+                                <div class="integration-status">
+                                    <span class="status-badge status-pending">Не подключено</span>
+                                    <button onclick="connectIntegration('slack')" class="btn-primary">Подключить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Основные функции
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        // Управление вкладками
+        function showTab(tabName) {
+            // Скрываем все вкладки
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Убираем активный класс с кнопок
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Показываем выбранную вкладку
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Функции настроек
+        function saveAllSettings() {
+            const settings = {
+                language: document.getElementById('language').value,
+                timezone: document.getElementById('timezone').value,
+                currency: document.getElementById('currency').value,
+                dateFormat: document.getElementById('dateFormat').value,
+                darkMode: document.getElementById('darkMode').checked,
+                compactMode: document.getElementById('compactMode').checked,
+                autoSave: document.getElementById('autoSave').checked,
+                companyName: document.getElementById('companyName').value,
+                companyTax: document.getElementById('companyTax').value,
+                companyAddress: document.getElementById('companyAddress').value,
+                companyPhone: document.getElementById('companyPhone').value,
+                companyEmail: document.getElementById('companyEmail').value
+            };
+            
+            // В реальном приложении здесь будет отправка на сервер
+            localStorage.setItem('buildcrm_settings', JSON.stringify(settings));
+            alert('Настройки сохранены успешно!');
+        }
+
+        function toggleDarkMode() {
+            const isDark = document.getElementById('darkMode').checked;
+            if (isDark) {
+                document.body.classList.add('dark-theme');
+                alert('Темная тема включена (демо)');
+            } else {
+                document.body.classList.remove('dark-theme');
+                alert('Темная тема выключена (демо)');
+            }
+        }
+
+        function changePassword() {
+            const current = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            
+            if (!current || !newPass || !confirm) {
+                alert('Заполните все поля');
+                return;
+            }
+            
+            if (newPass !== confirm) {
+                alert('Пароли не совпадают');
+                return;
+            }
+            
+            if (newPass.length < 6) {
+                alert('Пароль должен содержать минимум 6 символов');
+                return;
+            }
+            
+            alert('Пароль изменен успешно!');
+            // Очищаем поля
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        function terminateSession() {
+            if (confirm('Завершить эту сессию?')) {
+                alert('Сессия завершена');
+            }
+        }
+
+        function connectIntegration(service) {
+            const services = {
+                google: 'Google Calendar',
+                slack: 'Slack'
+            };
+            
+            alert(`Подключение к ${services[service]}...\nВы будете перенаправлены на страницу авторизации.`);
+        }
+
+        function configureIntegration(service) {
+            alert('Открытие настроек интеграции с 1С:Бухгалтерия');
+        }
+
+        // Загрузка сохраненных настроек
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedSettings = localStorage.getItem('buildcrm_settings');
+            if (savedSettings) {
+                const settings = JSON.parse(savedSettings);
+                
+                // Применяем сохраненные настройки
+                Object.keys(settings).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = settings[key];
+                        } else {
+                            element.value = settings[key];
+                        }
+                    }
+                });
+                
+                // Применяем темную тему если была включена
+                if (settings.darkMode) {
+                    document.body.classList.add('dark-theme');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

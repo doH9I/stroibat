@@ -89,11 +89,8 @@ class Auth {
             this.isAuthenticated = true;
             this.currentUser = user;
             
-            this.showApp();
-            this.showNotification('Успешная авторизация', 'success');
-            
-            // Обновляем информацию пользователя в интерфейсе
-            this.updateUserInfo();
+            // Перенаправляем на дашборд
+            window.location.href = 'dashboard.html';
         } else {
             throw new Error('Неверные учетные данные');
         }

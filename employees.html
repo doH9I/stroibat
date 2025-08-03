@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>BuildCRM - Сотрудники</title>
+    <link rel="stylesheet" href="styles/main.css?v=1.0">
+    <link rel="stylesheet" href="styles/app.css?v=1.0">
+    <link rel="stylesheet" href="styles/employees.css?v=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-building"></i> BuildCRM</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i> Дашборд
+                    </a></li>
+                    <li><a href="projects.html" class="nav-link">
+                        <i class="fas fa-project-diagram"></i> Проекты
+                    </a></li>
+                    <li><a href="estimates.html" class="nav-link">
+                        <i class="fas fa-calculator"></i> Сметы
+                    </a></li>
+                    <li><a href="employees.html" class="nav-link active">
+                        <i class="fas fa-users"></i> Сотрудники
+                    </a></li>
+                    <li><a href="timesheet.html" class="nav-link">
+                        <i class="fas fa-clock"></i> Табель
+                    </a></li>
+                    <li><a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i> Аналитика
+                    </a></li>
+                    <li><a href="calendar.html" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i> Календарь
+                    </a></li>
+                    <li><a href="reports.html" class="nav-link">
+                        <i class="fas fa-file-alt"></i> Отчеты
+                    </a></li>
+                    <li><a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i> Настройки
+                    </a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="user-avatar">
+                    <div class="user-details">
+                        <span class="user-name">Администратор</span>
+                        <span class="user-role">Руководитель</span>
+                    </div>
+                </div>
+                <button onclick="logout()" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Верхняя панель -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button onclick="toggleSidebar()" class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>Сотрудники</h1>
+                </div>
+                <div class="top-bar-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Поиск сотрудников..." class="search-input" onkeyup="searchEmployees(this.value)">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <button onclick="showAddEmployeeModal()" class="btn-primary">
+                        <i class="fas fa-plus"></i> Добавить сотрудника
+                    </button>
+                </div>
+            </header>
+
+            <!-- Контент сотрудников -->
+            <div class="content-wrapper">
+                <div class="employees-section">
+                    <!-- Статистика -->
+                    <div class="employees-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">28</div>
+                                <div class="stat-label">Всего сотрудников</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">26</div>
+                                <div class="stat-label">Активных</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-hard-hat"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">18</div>
+                                <div class="stat-label">Рабочих</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value">10</div>
+                                <div class="stat-label">Менеджеров</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Список сотрудников -->
+                    <div class="employees-grid" id="employeesGrid">
+                        <div class="employee-card">
+                            <div class="employee-header">
+                                <div class="employee-avatar">ИА</div>
+                                <div class="employee-info">
+                                    <h3>Иванов Алексей Петрович</h3>
+                                    <p>Менеджер проектов</p>
+                                </div>
+                                <div class="employee-actions">
+                                    <button onclick="editEmployee(1)" class="btn-icon" title="Редактировать">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="deleteEmployee(1)" class="btn-icon" title="Удалить">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="employee-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>a.ivanov@buildcrm.com</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+7 (495) 123-45-67</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>В компании с 15.03.2020</span>
+                                </div>
+                            </div>
+                            <div class="employee-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">12</div>
+                                    <div class="stat-label">Проектов</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">95%</div>
+                                    <div class="stat-label">Эффективность</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="employee-card">
+                            <div class="employee-header">
+                                <div class="employee-avatar">ПМ</div>
+                                <div class="employee-info">
+                                    <h3>Петрова Мария Ивановна</h3>
+                                    <p>Архитектор</p>
+                                </div>
+                                <div class="employee-actions">
+                                    <button onclick="editEmployee(2)" class="btn-icon" title="Редактировать">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="deleteEmployee(2)" class="btn-icon" title="Удалить">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="employee-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>m.petrova@buildcrm.com</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+7 (495) 123-45-68</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>В компании с 22.07.2019</span>
+                                </div>
+                            </div>
+                            <div class="employee-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">8</div>
+                                    <div class="stat-label">Проектов</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">92%</div>
+                                    <div class="stat-label">Эффективность</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="employee-card">
+                            <div class="employee-header">
+                                <div class="employee-avatar">СВ</div>
+                                <div class="employee-info">
+                                    <h3>Сидоров Василий Константинович</h3>
+                                    <p>Прораб</p>
+                                </div>
+                                <div class="employee-actions">
+                                    <button onclick="editEmployee(3)" class="btn-icon" title="Редактировать">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="deleteEmployee(3)" class="btn-icon" title="Удалить">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="employee-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>v.sidorov@buildcrm.com</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+7 (495) 123-45-69</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>В компании с 10.01.2018</span>
+                                </div>
+                            </div>
+                            <div class="employee-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">15</div>
+                                    <div class="stat-label">Проектов</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">98%</div>
+                                    <div class="stat-label">Эффективность</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно добавления/редактирования сотрудника -->
+    <div id="employeeModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Новый сотрудник</h2>
+                <button onclick="closeEmployeeModal()" class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="employeeForm" class="modal-body" onsubmit="saveEmployee(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employeeName">ФИО</label>
+                        <input type="text" id="employeeName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeePosition">Должность</label>
+                        <select id="employeePosition" class="form-control">
+                            <option value="manager">Менеджер проектов</option>
+                            <option value="architect">Архитектор</option>
+                            <option value="foreman">Прораб</option>
+                            <option value="engineer">Инженер</option>
+                            <option value="worker">Рабочий</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employeeEmail">Email</label>
+                        <input type="email" id="employeeEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeePhone">Телефон</label>
+                        <input type="tel" id="employeePhone" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employeeHireDate">Дата трудоустройства</label>
+                        <input type="date" id="employeeHireDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeSalary">Зарплата (₽)</label>
+                        <input type="number" id="employeeSalary" class="form-control" min="0">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="closeEmployeeModal()" class="btn-secondary">Отмена</button>
+                    <button type="submit" class="btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Глобальные переменные
+        let editingEmployeeId = null;
+
+        // Основные функции
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        // Поиск сотрудников
+        function searchEmployees(query) {
+            const cards = document.querySelectorAll('.employee-card');
+            query = query.toLowerCase();
+            
+            cards.forEach(card => {
+                const name = card.querySelector('h3').textContent.toLowerCase();
+                const position = card.querySelector('p').textContent.toLowerCase();
+                const email = card.querySelector('.fa-envelope').nextElementSibling.textContent.toLowerCase();
+                
+                if (name.includes(query) || position.includes(query) || email.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Модальное окно
+        function showAddEmployeeModal() {
+            editingEmployeeId = null;
+            document.getElementById('modalTitle').textContent = 'Новый сотрудник';
+            document.getElementById('employeeForm').reset();
+            document.getElementById('employeeModal').classList.remove('hidden');
+        }
+
+        function closeEmployeeModal() {
+            document.getElementById('employeeModal').classList.add('hidden');
+            editingEmployeeId = null;
+        }
+
+        function editEmployee(id) {
+            editingEmployeeId = id;
+            document.getElementById('modalTitle').textContent = 'Редактировать сотрудника';
+            
+            // Заполняем форму данными (в реальном приложении данные будут загружаться с сервера)
+            if (id === 1) {
+                document.getElementById('employeeName').value = 'Иванов Алексей Петрович';
+                document.getElementById('employeePosition').value = 'manager';
+                document.getElementById('employeeEmail').value = 'a.ivanov@buildcrm.com';
+                document.getElementById('employeePhone').value = '+7 (495) 123-45-67';
+                document.getElementById('employeeHireDate').value = '2020-03-15';
+                document.getElementById('employeeSalary').value = '80000';
+            }
+            
+            document.getElementById('employeeModal').classList.remove('hidden');
+        }
+
+        function deleteEmployee(id) {
+            if (confirm('Вы уверены, что хотите удалить этого сотрудника?')) {
+                // В реальном приложении здесь будет отправка запроса на сервер
+                const cards = document.querySelectorAll('.employee-card');
+                if (cards[id - 1]) {
+                    cards[id - 1].remove();
+                    updateStats();
+                }
+                alert('Сотрудник удален');
+            }
+        }
+
+        function saveEmployee(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('employeeName').value,
+                position: document.getElementById('employeePosition').value,
+                email: document.getElementById('employeeEmail').value,
+                phone: document.getElementById('employeePhone').value,
+                hireDate: document.getElementById('employeeHireDate').value,
+                salary: document.getElementById('employeeSalary').value
+            };
+            
+            if (editingEmployeeId) {
+                alert('Сотрудник обновлен: ' + formData.name);
+            } else {
+                // Создаем новую карточку сотрудника
+                const grid = document.getElementById('employeesGrid');
+                const newCard = document.createElement('div');
+                newCard.className = 'employee-card';
+                
+                const positionNames = {
+                    'manager': 'Менеджер проектов',
+                    'architect': 'Архитектор',
+                    'foreman': 'Прораб',
+                    'engineer': 'Инженер',
+                    'worker': 'Рабочий'
+                };
+                
+                // Генерируем инициалы
+                const nameParts = formData.name.split(' ');
+                const initials = nameParts.slice(0, 2).map(part => part[0]).join('');
+                
+                newCard.innerHTML = `
+                    <div class="employee-header">
+                        <div class="employee-avatar">${initials}</div>
+                        <div class="employee-info">
+                            <h3>${formData.name}</h3>
+                            <p>${positionNames[formData.position]}</p>
+                        </div>
+                        <div class="employee-actions">
+                            <button onclick="editEmployee(${Date.now()})" class="btn-icon" title="Редактировать">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="deleteEmployee(${Date.now()})" class="btn-icon" title="Удалить">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="employee-details">
+                        <div class="detail-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>${formData.email}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-phone"></i>
+                            <span>${formData.phone}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>В компании с ${new Date(formData.hireDate).toLocaleDateString('ru-RU')}</span>
+                        </div>
+                    </div>
+                    <div class="employee-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Проектов</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">-</div>
+                            <div class="stat-label">Эффективность</div>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(newCard);
+                updateStats();
+                alert('Новый сотрудник добавлен: ' + formData.name);
+            }
+            
+            closeEmployeeModal();
+        }
+
+        function updateStats() {
+            const totalEmployees = document.querySelectorAll('.employee-card').length;
+            document.querySelector('.employees-stats .stat-value').textContent = totalEmployees;
+        }
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const modal = document.getElementById('employeeModal');
+            if (event.target === modal) {
+                closeEmployeeModal();
+            }
+        }
+    </script>
+</body>
+</html>

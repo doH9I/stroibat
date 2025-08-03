@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>BuildCRM - Табель</title>
+    <link rel="stylesheet" href="styles/main.css?v=1.0">
+    <link rel="stylesheet" href="styles/app.css?v=1.0">
+    <link rel="stylesheet" href="styles/timesheet.css?v=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-building"></i> BuildCRM</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i> Дашборд
+                    </a></li>
+                    <li><a href="projects.html" class="nav-link">
+                        <i class="fas fa-project-diagram"></i> Проекты
+                    </a></li>
+                    <li><a href="estimates.html" class="nav-link">
+                        <i class="fas fa-calculator"></i> Сметы
+                    </a></li>
+                    <li><a href="employees.html" class="nav-link">
+                        <i class="fas fa-users"></i> Сотрудники
+                    </a></li>
+                    <li><a href="timesheet.html" class="nav-link active">
+                        <i class="fas fa-clock"></i> Табель
+                    </a></li>
+                    <li><a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i> Аналитика
+                    </a></li>
+                    <li><a href="calendar.html" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i> Календарь
+                    </a></li>
+                    <li><a href="reports.html" class="nav-link">
+                        <i class="fas fa-file-alt"></i> Отчеты
+                    </a></li>
+                    <li><a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i> Настройки
+                    </a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="user-avatar">
+                    <div class="user-details">
+                        <span class="user-name">Администратор</span>
+                        <span class="user-role">Руководитель</span>
+                    </div>
+                </div>
+                <button onclick="logout()" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Верхняя панель -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button onclick="toggleSidebar()" class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>Табель учета времени</h1>
+                </div>
+                <div class="top-bar-right">
+                    <div class="date-range">
+                        <input type="date" id="startDate" class="form-control" onchange="filterByDate()">
+                        <span>—</span>
+                        <input type="date" id="endDate" class="form-control" onchange="filterByDate()">
+                    </div>
+                    <button onclick="exportTimesheet()" class="btn-secondary">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                </div>
+            </header>
+
+            <!-- Контент табеля -->
+            <div class="content-wrapper">
+                <div class="timesheet-section">
+                    <!-- Быстрый таймер -->
+                    <div class="quick-timer">
+                        <h3>Быстрый учет времени</h3>
+                        <div class="timer-display">
+                            <div class="timer-time" id="timerDisplay">00:00:00</div>
+                            <div class="timer-project">
+                                <select id="currentProject" class="form-control">
+                                    <option value="">Выберите проект</option>
+                                    <option value="alpha">Офисный центр "Альфа"</option>
+                                    <option value="sunny">ЖК "Солнечный"</option>
+                                    <option value="megapolis">ТЦ "Мегаполис"</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="timer-controls">
+                            <button onclick="startTimer()" class="timer-btn timer-start" id="startBtn">
+                                <i class="fas fa-play"></i> Старт
+                            </button>
+                            <button onclick="pauseTimer()" class="timer-btn timer-pause" id="pauseBtn" disabled>
+                                <i class="fas fa-pause"></i> Пауза
+                            </button>
+                            <button onclick="stopTimer()" class="timer-btn timer-stop" id="stopBtn" disabled>
+                                <i class="fas fa-stop"></i> Стоп
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Сводка за сегодня -->
+                    <div class="timesheet-summary">
+                        <div class="summary-card">
+                            <div class="icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="value" id="todayHours">8.5</div>
+                            <div class="label">Часов сегодня</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="icon">
+                                <i class="fas fa-calendar-week"></i>
+                            </div>
+                            <div class="value" id="weekHours">42.5</div>
+                            <div class="label">Часов за неделю</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="value" id="monthHours">165</div>
+                            <div class="label">Часов за месяц</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="value" id="activeProjects">3</div>
+                            <div class="label">Активных проектов</div>
+                        </div>
+                    </div>
+
+                    <!-- Таблица записей времени -->
+                    <div class="timesheet-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Сотрудник</th>
+                                    <th>Проект</th>
+                                    <th>Начало</th>
+                                    <th>Окончание</th>
+                                    <th>Время</th>
+                                    <th>Комментарий</th>
+                                    <th>Статус</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timesheetBody">
+                                <tr>
+                                    <td>15.12.2024</td>
+                                    <td>Иванов А.П.</td>
+                                    <td>Офисный центр "Альфа"</td>
+                                    <td>09:00</td>
+                                    <td>17:30</td>
+                                    <td class="time-display">8.5 ч</td>
+                                    <td>Работа над проектной документацией</td>
+                                    <td><span class="status-badge status-approved">Утверждено</span></td>
+                                    <td>
+                                        <button onclick="editTimeEntry(1)" class="btn-icon" title="Редактировать">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button onclick="deleteTimeEntry(1)" class="btn-icon" title="Удалить">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>14.12.2024</td>
+                                    <td>Петрова М.И.</td>
+                                    <td>ЖК "Солнечный"</td>
+                                    <td>08:30</td>
+                                    <td>16:00</td>
+                                    <td class="time-display">7.5 ч</td>
+                                    <td>Создание архитектурных чертежей</td>
+                                    <td><span class="status-badge status-pending">На проверке</span></td>
+                                    <td>
+                                        <button onclick="editTimeEntry(2)" class="btn-icon" title="Редактировать">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button onclick="deleteTimeEntry(2)" class="btn-icon" title="Удалить">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>14.12.2024</td>
+                                    <td>Сидоров В.К.</td>
+                                    <td>ТЦ "Мегаполис"</td>
+                                    <td>10:00</td>
+                                    <td>18:00</td>
+                                    <td class="time-display">8.0 ч</td>
+                                    <td>Контроль строительных работ</td>
+                                    <td><span class="status-badge status-active">Активно</span></td>
+                                    <td>
+                                        <button onclick="editTimeEntry(3)" class="btn-icon" title="Редактировать">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button onclick="deleteTimeEntry(3)" class="btn-icon" title="Удалить">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Итоги -->
+                    <div class="total-hours">
+                        <div class="value" id="totalHours">24.0</div>
+                        <div class="label">Общее время за выбранный период (часов)</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно редактирования записи времени -->
+    <div id="timeEntryModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="timeModalTitle">Редактировать запись времени</h2>
+                <button onclick="closeTimeEntryModal()" class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="timeEntryForm" class="modal-body" onsubmit="saveTimeEntry(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="entryDate">Дата</label>
+                        <input type="date" id="entryDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="entryProject">Проект</label>
+                        <select id="entryProject" class="form-control" required>
+                            <option value="alpha">Офисный центр "Альфа"</option>
+                            <option value="sunny">ЖК "Солнечный"</option>
+                            <option value="megapolis">ТЦ "Мегаполис"</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startTime">Время начала</label>
+                        <input type="time" id="startTime" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endTime">Время окончания</label>
+                        <input type="time" id="endTime" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="entryComment">Комментарий</label>
+                    <textarea id="entryComment" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="closeTimeEntryModal()" class="btn-secondary">Отмена</button>
+                    <button type="submit" class="btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Глобальные переменные для таймера
+        let timerInterval = null;
+        let timerStartTime = null;
+        let timerElapsed = 0;
+        let isTimerRunning = false;
+        let editingTimeEntryId = null;
+
+        // Основные функции
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        // Функции таймера
+        function startTimer() {
+            const project = document.getElementById('currentProject').value;
+            if (!project) {
+                alert('Выберите проект для учета времени');
+                return;
+            }
+
+            isTimerRunning = true;
+            timerStartTime = Date.now();
+            
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('pauseBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = false;
+            
+            timerInterval = setInterval(updateTimerDisplay, 1000);
+        }
+
+        function pauseTimer() {
+            if (isTimerRunning) {
+                timerElapsed += Date.now() - timerStartTime;
+                isTimerRunning = false;
+                clearInterval(timerInterval);
+                
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('pauseBtn').disabled = true;
+                document.getElementById('startBtn').innerHTML = '<i class="fas fa-play"></i> Продолжить';
+            }
+        }
+
+        function stopTimer() {
+            if (isTimerRunning) {
+                timerElapsed += Date.now() - timerStartTime;
+            }
+            
+            const totalTime = Math.floor(timerElapsed / 1000);
+            const hours = Math.floor(totalTime / 3600);
+            const minutes = Math.floor((totalTime % 3600) / 60);
+            
+            // Добавляем запись в таблицу
+            const now = new Date();
+            const startTime = new Date(now.getTime() - timerElapsed);
+            
+            addTimeEntry({
+                date: now.toLocaleDateString('ru-RU'),
+                project: document.getElementById('currentProject').selectedOptions[0].text,
+                startTime: startTime.toTimeString().slice(0, 5),
+                endTime: now.toTimeString().slice(0, 5),
+                duration: `${hours}.${Math.round(minutes/60*10)} ч`,
+                comment: 'Автоматическая запись с таймера'
+            });
+            
+            resetTimer();
+            alert(`Время сохранено: ${hours} ч ${minutes} мин`);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerElapsed = 0;
+            isTimerRunning = false;
+            
+            document.getElementById('timerDisplay').textContent = '00:00:00';
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = true;
+            document.getElementById('startBtn').innerHTML = '<i class="fas fa-play"></i> Старт';
+        }
+
+        function updateTimerDisplay() {
+            const currentElapsed = timerElapsed + (isTimerRunning ? Date.now() - timerStartTime : 0);
+            const totalSeconds = Math.floor(currentElapsed / 1000);
+            
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            document.getElementById('timerDisplay').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function addTimeEntry(data) {
+            const tbody = document.getElementById('timesheetBody');
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td>${data.date}</td>
+                <td>Администратор</td>
+                <td>${data.project}</td>
+                <td>${data.startTime}</td>
+                <td>${data.endTime}</td>
+                <td class="time-display">${data.duration}</td>
+                <td>${data.comment}</td>
+                <td><span class="status-badge status-active">Активно</span></td>
+                <td>
+                    <button onclick="editTimeEntry(${Date.now()})" class="btn-icon" title="Редактировать">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button onclick="deleteTimeEntry(${Date.now()})" class="btn-icon" title="Удалить">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+            
+            tbody.insertBefore(newRow, tbody.firstChild);
+            updateTotalHours();
+        }
+
+        // Управление записями времени
+        function editTimeEntry(id) {
+            editingTimeEntryId = id;
+            document.getElementById('timeModalTitle').textContent = 'Редактировать запись времени';
+            
+            // Заполняем форму данными (в реальном приложении данные будут загружаться с сервера)
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('entryDate').value = today;
+            document.getElementById('entryProject').value = 'alpha';
+            document.getElementById('startTime').value = '09:00';
+            document.getElementById('endTime').value = '17:00';
+            document.getElementById('entryComment').value = '';
+            
+            document.getElementById('timeEntryModal').classList.remove('hidden');
+        }
+
+        function deleteTimeEntry(id) {
+            if (confirm('Вы уверены, что хотите удалить эту запись времени?')) {
+                // В реальном приложении здесь будет отправка запроса на сервер
+                alert('Запись времени удалена');
+                // Перезагружаем таблицу
+                updateTotalHours();
+            }
+        }
+
+        function closeTimeEntryModal() {
+            document.getElementById('timeEntryModal').classList.add('hidden');
+            editingTimeEntryId = null;
+        }
+
+        function saveTimeEntry(event) {
+            event.preventDefault();
+            
+            const formData = {
+                date: document.getElementById('entryDate').value,
+                project: document.getElementById('entryProject').value,
+                startTime: document.getElementById('startTime').value,
+                endTime: document.getElementById('endTime').value,
+                comment: document.getElementById('entryComment').value
+            };
+            
+            alert('Запись времени сохранена');
+            closeTimeEntryModal();
+        }
+
+        function updateTotalHours() {
+            // Обновляем общее количество часов (демо)
+            const rows = document.querySelectorAll('#timesheetBody tr');
+            document.getElementById('totalHours').textContent = (rows.length * 8).toFixed(1);
+        }
+
+        function filterByDate() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            
+            if (startDate && endDate) {
+                alert(`Фильтрация по периоду: ${startDate} — ${endDate}`);
+                // Здесь будет логика фильтрации данных
+            }
+        }
+
+        function exportTimesheet() {
+            alert('Экспорт табеля в Excel файл');
+            // Здесь будет логика экспорта данных
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            // Устанавливаем текущую дату в фильтры
+            const today = new Date();
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+            
+            document.getElementById('startDate').value = firstDay.toISOString().split('T')[0];
+            document.getElementById('endDate').value = today.toISOString().split('T')[0];
+        });
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const modal = document.getElementById('timeEntryModal');
+            if (event.target === modal) {
+                closeTimeEntryModal();
+            }
+        }
+    </script>
+</body>
+</html>

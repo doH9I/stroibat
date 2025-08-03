@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>BuildCRM - Дашборд</title>
+    <link rel="stylesheet" href="styles/main.css?v=1.0">
+    <link rel="stylesheet" href="styles/app.css?v=1.0">
+    <link rel="stylesheet" href="styles/dashboard.css?v=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-building"></i> BuildCRM</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i> Дашборд
+                    </a></li>
+                    <li><a href="projects.html" class="nav-link">
+                        <i class="fas fa-project-diagram"></i> Проекты
+                    </a></li>
+                    <li><a href="estimates.html" class="nav-link">
+                        <i class="fas fa-calculator"></i> Сметы
+                    </a></li>
+                    <li><a href="employees.html" class="nav-link">
+                        <i class="fas fa-users"></i> Сотрудники
+                    </a></li>
+                    <li><a href="timesheet.html" class="nav-link">
+                        <i class="fas fa-clock"></i> Табель
+                    </a></li>
+                    <li><a href="analytics.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i> Аналитика
+                    </a></li>
+                    <li><a href="calendar.html" class="nav-link">
+                        <i class="fas fa-calendar-alt"></i> Календарь
+                    </a></li>
+                    <li><a href="reports.html" class="nav-link">
+                        <i class="fas fa-file-alt"></i> Отчеты
+                    </a></li>
+                    <li><a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i> Настройки
+                    </a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/40" alt="User" class="user-avatar">
+                    <div class="user-details">
+                        <span class="user-name">Администратор</span>
+                        <span class="user-role">Руководитель</span>
+                    </div>
+                </div>
+                <button onclick="logout()" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Верхняя панель -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button onclick="toggleSidebar()" class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>Дашборд</h1>
+                </div>
+                <div class="top-bar-right">
+                    <div class="notifications">
+                        <button onclick="showNotifications()" class="notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-count">3</span>
+                        </button>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" placeholder="Поиск..." class="search-input">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Контент дашборда -->
+            <div class="content-wrapper">
+                <div class="dashboard-container">
+                    <!-- Метрики -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="metric-info">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Активных проектов</div>
+                                <div class="metric-change positive">+2 за месяц</div>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-ruble-sign"></i>
+                            </div>
+                            <div class="metric-info">
+                                <div class="metric-value">2.4М ₽</div>
+                                <div class="metric-label">Общий бюджет</div>
+                                <div class="metric-change positive">+15% за месяц</div>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="metric-info">
+                                <div class="metric-value">28</div>
+                                <div class="metric-label">Сотрудников</div>
+                                <div class="metric-change">Без изменений</div>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="metric-info">
+                                <div class="metric-value">156</div>
+                                <div class="metric-label">Активных задач</div>
+                                <div class="metric-change negative">-8 за неделю</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Графики и списки -->
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Активность проектов</h3>
+                                <button onclick="refreshChart()" class="btn-secondary">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="projectsChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Последние проекты</h3>
+                                <a href="projects.html" class="btn-link">Все проекты</a>
+                            </div>
+                            <div class="projects-list">
+                                <div class="project-item">
+                                    <div class="project-info">
+                                        <h4>Офисный центр "Альфа"</h4>
+                                        <p>Строительство 15-этажного офисного здания</p>
+                                        <span class="project-status active">В работе</span>
+                                    </div>
+                                    <div class="project-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 65%"></div>
+                                        </div>
+                                        <span class="progress-text">65%</span>
+                                    </div>
+                                </div>
+
+                                <div class="project-item">
+                                    <div class="project-info">
+                                        <h4>ЖК "Солнечный"</h4>
+                                        <p>Жилой комплекс на 120 квартир</p>
+                                        <span class="project-status planning">Планирование</span>
+                                    </div>
+                                    <div class="project-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 25%"></div>
+                                        </div>
+                                        <span class="progress-text">25%</span>
+                                    </div>
+                                </div>
+
+                                <div class="project-item">
+                                    <div class="project-info">
+                                        <h4>Торговый центр "Мегаполис"</h4>
+                                        <p>Реконструкция торгового центра</p>
+                                        <span class="project-status completed">Завершен</span>
+                                    </div>
+                                    <div class="project-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 100%"></div>
+                                        </div>
+                                        <span class="progress-text">100%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Простые функции для интерактивности
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        function showNotifications() {
+            alert('У вас 3 новых уведомления:\n1. Проект "Альфа" требует внимания\n2. Новый сотрудник добавлен\n3. Отчет за месяц готов');
+        }
+
+        function refreshChart() {
+            alert('График обновлен');
+            // Здесь будет логика обновления графика
+        }
+
+        // Инициализация графика
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('projectsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+                    datasets: [{
+                        label: 'Активные проекты',
+                        data: [8, 10, 9, 12, 11, 12],
+                        borderColor: '#667eea',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
