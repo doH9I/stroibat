@@ -1,0 +1,555 @@
+/* Стили модуля смет */
+
+.estimates-container {
+    max-width: 100%;
+}
+
+/* Сетка смет */
+.estimates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 24px;
+}
+
+.estimate-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+}
+
+.estimate-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: #667eea;
+}
+
+.estimate-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.estimate-status {
+    flex: 1;
+}
+
+.estimate-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.estimate-content {
+    margin-bottom: 20px;
+}
+
+.estimate-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.estimate-project {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.estimate-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.estimate-summary {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.summary-item:last-child {
+    margin-bottom: 0;
+}
+
+.summary-label {
+    color: #6b7280;
+}
+
+.summary-value {
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.summary-value.total {
+    font-weight: 600;
+    color: #667eea;
+    font-size: 16px;
+}
+
+.estimate-footer {
+    display: flex;
+    gap: 8px;
+}
+
+/* Позиции сметы */
+.estimate-items {
+    margin-bottom: 16px;
+}
+
+.estimate-item {
+    margin-bottom: 12px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.item-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.item-row input,
+.item-row select {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.item-row input:focus,
+.item-row select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.item-row input[readonly] {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.estimate-total {
+    margin-top: 16px;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    color: white;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Детали сметы */
+.estimate-details {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.estimate-details .detail-section {
+    margin-bottom: 24px;
+}
+
+.estimate-details .detail-section h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.estimate-details .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.estimate-details .detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.estimate-details .detail-label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.estimate-details .detail-value {
+    font-size: 14px;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.estimate-details .detail-value.total {
+    font-weight: 600;
+    color: #667eea;
+    font-size: 16px;
+}
+
+/* Таблица позиций */
+.estimate-details .table-container {
+    margin-top: 12px;
+}
+
+.estimate-details .table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.estimate-details .table th,
+.estimate-details .table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.estimate-details .table th {
+    background: #f8fafc;
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+}
+
+.estimate-details .table td {
+    font-size: 14px;
+    color: #1f2937;
+}
+
+.estimate-details .table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.estimate-details .table tfoot {
+    background: #f8fafc;
+    font-weight: 600;
+}
+
+.estimate-details .table tfoot td {
+    color: #1f2937;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Статусы смет */
+.status-badge.status-draft {
+    background: #f3f4f6;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+}
+
+.status-badge.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fbbf24;
+}
+
+.status-badge.status-approved {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+.status-badge.status-rejected {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #f87171;
+}
+
+/* Печать */
+.print-estimate {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.print-estimate h2 {
+    color: #1f2937;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.print-estimate p {
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.print-table th,
+.print-table td {
+    border: 1px solid #d1d5db;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.print-table th {
+    background: #f3f4f6;
+    font-weight: 600;
+}
+
+.print-table tfoot {
+    font-weight: 600;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .estimates-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+    
+    .item-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .item-row input,
+    .item-row select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .estimates-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .estimate-card {
+        padding: 16px;
+    }
+    
+    .estimate-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .estimate-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .estimate-footer {
+        flex-direction: column;
+    }
+    
+    .estimate-footer .btn {
+        width: 100%;
+    }
+    
+    .estimate-details .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .estimate-details .table {
+        font-size: 12px;
+    }
+    
+    .estimate-details .table th,
+    .estimate-details .table td {
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .estimate-actions {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .btn-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .item-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .print-table {
+        font-size: 12px;
+    }
+    
+    .print-table th,
+    .print-table td {
+        padding: 6px 8px;
+    }
+}
+
+/* Анимации */
+.estimate-card {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стили для пустого состояния */
+.estimates-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+}
+
+.estimates-empty i {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.3;
+}
+
+.estimates-empty h3 {
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.estimates-empty p {
+    margin-bottom: 24px;
+}
+
+/* Стили для загрузки */
+.estimates-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.estimates-loading .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #e5e7eb;
+    border-top: 6px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Дополнительные стили для статусов */
+.status-badge.status-draft {
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+}
+
+.status-badge.status-pending {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+    border: 1px solid #fbbf24;
+}
+
+.status-badge.status-approved {
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+.status-badge.status-rejected {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+    border: 1px solid #f87171;
+}
+
+/* Стили для калькулятора */
+.calculator-section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.calculator-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.calculator-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.calculator-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.calculator-result {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.calculator-result .result-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 4px;
+}
+
+.calculator-result .result-label {
+    font-size: 14px;
+    color: #6b7280;
+}
